@@ -1,4 +1,5 @@
 import Banner from "@/components/Banner/banner";
+import CTA from "@/components/CTA/cta";
 import FeaturedDestinations from "@/components/Featured destinations/featuredDestinations";
 import Navbar from "@/components/Navbar/navbar";
 import Testimonials from "@/components/Testimonials/Testimonials";
@@ -13,6 +14,7 @@ export default function Page() {
       <FeaturedDestinations />
       <WhyChoose />
       <Testimonials />
+      <CTA />
     </main>
   )
 }
