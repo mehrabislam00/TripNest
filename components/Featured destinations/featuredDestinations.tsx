@@ -19,6 +19,7 @@ import image3 from "@/assets/destinations/image3.png"
 import image4 from "@/assets/destinations/image4.png"
 import image5 from "@/assets/destinations/image5.png"
 import image6 from "@/assets/destinations/image6.png"
+import { Button } from "@/components/ui/button"
 
 type Destination = {
   id: number
@@ -202,24 +203,26 @@ export default function FeaturedDestinations() {
           </div>
 
           <div className="flex gap-3">
-            <button
-              type="button"
+            <Button
+              variant="outline"
+              size="icon"
               aria-label="Previous destination"
               onClick={() => scrollByCard(-1)}
               disabled={index === 0}
-              className="grid size-12 place-items-center rounded-full border border-neutral-300 bg-white text-neutral-600 transition-all duration-300 hover:scale-105 hover:border-[#1a9fc0] hover:bg-[#1a9fc0] hover:text-white disabled:pointer-events-none disabled:opacity-40"
+              className="group size-12 rounded-full border-neutral-300 bg-white transition-all duration-300 hover:scale-110 hover:border-[#1a9fc0] hover:bg-[#1a9fc0] hover:text-white hover:shadow-lg hover:shadow-[#1a9fc0]/40 active:scale-95 focus-visible:ring-[#1a9fc0]/40 disabled:opacity-40"
             >
-              <ArrowLeft className="size-4" />
-            </button>
-            <button
-              type="button"
+              <ArrowLeft className="size-4 transition-transform duration-300 group-hover:-translate-x-1" />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
               aria-label="Next destination"
               onClick={() => scrollByCard(1)}
               disabled={index >= total - 1}
-              className="grid size-12 place-items-center rounded-full border border-neutral-300 bg-white text-neutral-600 transition-all duration-300 hover:scale-105 hover:border-[#1a9fc0] hover:bg-[#1a9fc0] hover:text-white disabled:pointer-events-none disabled:opacity-40"
+              className="group size-12 rounded-full border-neutral-300 bg-white transition-all duration-300 hover:scale-110 hover:border-[#1a9fc0] hover:bg-[#1a9fc0] hover:text-white hover:shadow-lg hover:shadow-[#1a9fc0]/40 active:scale-95 focus-visible:ring-[#1a9fc0]/40 disabled:opacity-40"
             >
-              <ArrowRight className="size-4" />
-            </button>
+              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Button>
           </div>
         </div>
       </div>
