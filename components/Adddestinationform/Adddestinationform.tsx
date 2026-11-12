@@ -106,12 +106,14 @@ export default function AddDestinationForm() {
   const [errors, setErrors] = useState<Errors>({})
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [submissionError, setSubmissionError] = useState<string | null>(null)
   const [imageFailed, setImageFailed] = useState(false)
 
   const set = <K extends keyof Values>(key: K, value: Values[K]) => {
     setValues((prev) => ({ ...prev, [key]: value }))
     if (errors[key]) setErrors((prev) => ({ ...prev, [key]: undefined }))
     if (success) setSuccess(false)
+    if (submissionError) setSubmissionError(null)
     if (key === "imageUrl") setImageFailed(false)
   }
 
@@ -122,18 +124,35 @@ export default function AddDestinationForm() {
     if (Object.keys(found).length > 0) return
 
     setSubmitting(true)
+    setSubmissionError(null)
     try {
-      // TODO: replace with your real API call, e.g.
-      // await fetch("/api/destinations", { method: "POST", body: JSON.stringify(values) })
-      await new Promise((r) => setTimeout(r, 900))
-      setValues(initialValues)
+      const res = await fetch("http://localhost:5000/add_destination", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      })
+
+      const data = await res.json()
+      if (!res.ok) {
+        throw new Error(data.message || "Failed to add destination")
+      }
       setSuccess(true)
+      setValues(initialValues)
+      router.push("/add-destination")
+    } catch (error) {
+      setSubmissionError(
+        error instanceof Error ? error.message : "Failed to add destination",
+      )
     } finally {
       setSubmitting(false)
     }
   }
 
   const showPreview = values.imageUrl && !errors.imageUrl && !imageFailed
+
+
 
   return (
     <Card className="rounded-2xl border-0 bg-white py-0 shadow-xl shadow-black/5 ring-1 ring-black/5">
@@ -146,6 +165,15 @@ export default function AddDestinationForm() {
             >
               <CheckCircle2 className="size-5 shrink-0" />
               Travel package added successfully.
+            </div>
+          )}
+
+          {submissionError && (
+            <div
+              role="alert"
+              className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700 ring-1 ring-red-200"
+            >
+              {submissionError}
             </div>
           )}
 
