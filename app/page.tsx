@@ -10,13 +10,13 @@ import Footer from "@/components/Footer/Footer";
 export default function Page() {
   return (
     <main className="relative">
-      <Navbar />
+     
       <Banner />
       <FeaturedDestinations />
       <WhyChoose />
       <Testimonials />
       <CTA />
-      <Footer />
+    
     </main>
   )
 }

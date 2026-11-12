@@ -1,9 +1,9 @@
 import { Outfit } from "next/font/google"
 
 import "./globals.css"
-import { cn } from "@/lib/utils";
-import Navbar from "@/components/Navbar/navbar";
-import { Footer } from "react-day-picker";
+import { cn } from "@/lib/utils"
+import Footer from "@/components/Footer/Footer"
+import Navbar from "@/components/Navbar/navbar"
 
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-sans' })
 

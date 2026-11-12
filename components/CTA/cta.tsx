@@ -46,6 +46,7 @@ export default function CTA({
           <Button
             variant="default"
             size="lg"
+            nativeButton={false}
             render={<Link href={bookHref} />}
             className="group/btn h-14 w-full gap-3 whitespace-nowrap rounded-full bg-white px-8 text-sm font-semibold uppercase tracking-wider text-neutral-900 shadow-xl shadow-black/30 transition-all duration-300 hover:-translate-y-1 hover:bg-[#1a9fc0] hover:text-white hover:shadow-2xl hover:shadow-[#1a9fc0]/50 active:translate-y-0 focus-visible:ring-4 focus-visible:ring-white/40 sm:w-auto"
           >
@@ -56,6 +57,7 @@ export default function CTA({
           <Button
             variant="outline"
             size="lg"
+            nativeButton={false}
             render={<Link href={exploreHref} />}
             className="group/btn h-14 w-full gap-3 whitespace-nowrap rounded-full border-white/40 bg-white/10 px-8 text-sm font-semibold uppercase tracking-wider text-white backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-white hover:bg-white/20 hover:text-white active:translate-y-0 focus-visible:ring-4 focus-visible:ring-white/40 sm:w-auto"
           >
