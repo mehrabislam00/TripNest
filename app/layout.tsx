@@ -1,8 +1,9 @@
 import { Outfit } from "next/font/google"
 
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils";
+import Navbar from "@/components/Navbar/navbar";
+import { Footer } from "react-day-picker";
 
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-sans' })
 
@@ -24,7 +25,9 @@ export default function RootLayout({
       className={cn("antialiased", fontMono.variable, "font-sans", outfit.variable)}
     >
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <Navbar />
+        {children}
+        <Footer />
       </body>
     </html>
   )

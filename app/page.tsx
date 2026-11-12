@@ -4,6 +4,7 @@ import FeaturedDestinations from "@/components/Featured destinations/featuredDes
 import Navbar from "@/components/Navbar/navbar";
 import Testimonials from "@/components/Testimonials/Testimonials";
 import WhyChoose from "@/components/Whychoose/Whychoose";
+import Footer from "@/components/Footer/Footer";
 
 
 export default function Page() {
@@ -15,6 +16,7 @@ export default function Page() {
       <WhyChoose />
       <Testimonials />
       <CTA />
+      <Footer />
     </main>
   )
 }
