@@ -1,12 +1,11 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft, CalendarDays, Check, CloudOff, MapPin, Star } from "lucide-react"
-import { API_URL } from "@/lib/destinations"
 import { getDestination } from "@/lib/Destination"
-import DestinationImage from "@/components/destinations/destination-image"
+import { API_URL } from "@/lib/destinations"
 import BookingCard from "@/components/Details/BookingCard"
-
-
+import DestinationActions from "@/components/Details/Destination-actions"
+import DestinationImage from "@/components/destinations/destination-image"
 
 type Props = { params: Promise<{ id: string }> }
 
@@ -39,7 +38,7 @@ export default async function DestinationDetails({ params }: Props) {
           </p>
           <Link
             href={`/destinations/${id}`}
-            className="mt-6 inline-flex h-10 items-center justify-center rounded-md bg-[#1a9fc0] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#168aa8]"
+            className="mt-6 inline-flex items-center justify-center rounded-md bg-[#1a9fc0] px-4 py-2 text-sm font-medium text-white hover:bg-[#168aa8]"
           >
             Try again
           </Link>
@@ -53,14 +52,18 @@ export default async function DestinationDetails({ params }: Props) {
   return (
     <main className="min-h-svh bg-white px-4 pb-24 pt-28 sm:pt-36 lg:px-12">
       <div className="mx-auto max-w-[1200px]">
-        {/* Back link */}
-        <Link
-          href="/destinations"
-          className="group inline-flex items-center gap-2 text-sm text-neutral-600 transition-colors hover:text-[#1a9fc0]"
-        >
-          <ArrowLeft className="size-4 transition-transform duration-300 group-hover:-translate-x-1" />
-          Back to Destinations
-        </Link>
+        {/* Top bar: back link + admin actions */}
+        <div className="flex items-center justify-between gap-4">
+          <Link
+            href="/destinations"
+            className="group inline-flex items-center gap-2 text-sm text-neutral-600 transition-colors hover:text-[#1a9fc0]"
+          >
+            <ArrowLeft className="size-4 transition-transform duration-300 group-hover:-translate-x-1" />
+            Back to Destinations
+          </Link>
+
+          <DestinationActions destination={d} />
+        </div>
 
         {/* Hero image */}
         <div className="relative mt-6 aspect-[16/9] overflow-hidden rounded-3xl bg-neutral-100 shadow-xl shadow-black/10 sm:aspect-[21/9]">
@@ -126,7 +129,7 @@ export default async function DestinationDetails({ params }: Props) {
               <section className="mt-10">
                 <h2 className="text-2xl font-medium text-neutral-900">Highlights</h2>
                 <ul className="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2">
-                  {d.highlights.map((h: string) => (
+                  {d.highlights.map((h) => (
                     <li key={h} className="flex items-start gap-3 text-sm text-neutral-700">
                       <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-emerald-50 text-emerald-600">
                         <Check className="size-3.5" />

@@ -1,4 +1,4 @@
-import { revalidateTag } from "next/cache"
+import { revalidateTag, updateTag } from "next/cache"
 
 export type Destination = {
   id: string
@@ -116,4 +116,12 @@ export async function getDestination(id: string): Promise<{
  */
 export function invalidateDestinationsCache() {
   revalidateTag(DESTINATIONS_CACHE_TAG, "max")
+}
+
+/**
+ * Expires cached destinations immediately (read-your-writes), so the next
+ * render after an edit or delete shows fresh data. Server Actions only.
+ */
+export function refreshDestinationsNow() {
+  updateTag(DESTINATIONS_CACHE_TAG)
 }

@@ -1,4 +1,4 @@
-import { revalidateTag } from "next/cache"
+import { revalidateTag, updateTag } from "next/cache"
 
 export type Destination = {
   id: string
@@ -10,6 +10,9 @@ export type Destination = {
   image: string // image URL from your API
   rating?: number // average rating; the card shows "New" when missing
   description?: string
+  departureDate?: string
+  highlights?: string[]
+  reviewCount?: number
 }
 
 export const API_URL = process.env.API_URL ?? "http://localhost:5000"
@@ -74,4 +77,8 @@ export async function getDestinations(): Promise<{
  */
 export function invalidateDestinationsCache() {
   revalidateTag(DESTINATIONS_CACHE_TAG, "max")
+}
+
+export function refreshDestinationsNow() {
+  updateTag(DESTINATIONS_CACHE_TAG)
 }
