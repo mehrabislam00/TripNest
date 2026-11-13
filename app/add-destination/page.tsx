@@ -1,6 +1,5 @@
 import AddDestinationForm from "@/components/Adddestinationform/Adddestinationform"
 
-
 export const metadata = {
   title: "Add New Travel Package | Wanderlast",
 }

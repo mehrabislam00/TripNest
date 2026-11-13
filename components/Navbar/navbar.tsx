@@ -8,7 +8,7 @@ import { Menu, User, X } from "lucide-react"
 const mainLinks = [
   { label: "Home", href: "/" },
   { label: "Destinations", href: "/destinations" },
-  { label: "My Bookings", href: "/bookings" },
+  { label: "My Bookings", href: "/my-bookings" },
   { label: "Admin", href: "/admin" },
 ]
 

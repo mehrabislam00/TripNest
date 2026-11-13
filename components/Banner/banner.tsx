@@ -1,23 +1,25 @@
 import Image from "next/image"
 import { ArrowRight, Calendar, MapPin, Search, Users, Wallet } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import bannerImage from "@/assets/Banner.png"
+import bannerImg from "@/assets/Banner.png"
 
 const searchFields = [
   { label: "Location", placeholder: "Address, City Or Zip", icon: MapPin },
   { label: "Date/Duration", placeholder: "Anytime/3 Days", icon: Calendar },
-  { label: "Budget", placeholder: "$0-$3000", icon: Wallet },
+  { label: "Budget", placeholder: "৳0-৳50,000", icon: Wallet },
   { label: "People", placeholder: "5-10", icon: Users },
 ]
 
 export default function Banner() {
   return (
     <section className="relative flex min-h-svh flex-col overflow-hidden text-white">
+      {/* Background image (static import from /assets) */}
       <Image
-        src={bannerImage}
+        src={bannerImg}
         alt="Coastal village on a turquoise bay"
         fill
         priority
+        placeholder="blur"
         className="object-cover"
       />
       {/* Overlays for contrast */}
