@@ -4,7 +4,7 @@ import { ArrowLeft, CalendarDays, Check, CloudOff, MapPin, Star } from "lucide-r
 import { getDestination } from "@/lib/Destination"
 import { API_URL } from "@/lib/destinations"
 import BookingCard from "@/components/Details/BookingCard"
-import DestinationActions from "@/components/Details/Destination-actions"
+// import DestinationActions from "@/components/Details/Destination-actions"
 import DestinationImage from "@/components/destinations/destination-image"
 
 type Props = { params: Promise<{ id: string }> }
@@ -62,7 +62,7 @@ export default async function DestinationDetails({ params }: Props) {
             Back to Destinations
           </Link>
 
-          <DestinationActions destination={d} />
+          {/* <DestinationActions destination={d} /> */}
         </div>
 
         {/* Hero image */}
