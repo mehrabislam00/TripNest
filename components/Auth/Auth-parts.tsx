@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { authClient } from "@/lib/auth-client"
 
 /** Page wrapper: centered heading + card, with a soft entrance animation. */
 export function AuthShell({
@@ -138,67 +137,5 @@ export function FormError({ message }: { message: string }) {
     >
       {message}
     </p>
-  )
-}
-
-export function OrDivider({ text }: { text: string }) {
-  return (
-    <div className="relative my-6 flex items-center">
-      <span className="h-px flex-1 bg-neutral-200" />
-      <span className="px-3 text-xs text-neutral-500">{text}</span>
-      <span className="h-px flex-1 bg-neutral-200" />
-    </div>
-  )
-}
-
-function GoogleIcon() {
-  return (
-    <svg viewBox="0 0 48 48" className="size-4" aria-hidden>
-      <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.3l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z" />
-      <path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.4 5.7c4.3-4 6.9-9.9 6.9-17.1z" />
-      <path fill="#FBBC05" d="M10.5 28.6A14.5 14.5 0 0 1 9.5 24c0-1.6.3-3.1.8-4.6l-7.9-6.1A24 24 0 0 0 0 24c0 3.9.9 7.5 2.6 10.7l7.9-6.1z" />
-      <path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.4-5.7c-2.1 1.4-4.8 2.3-8.5 2.3-6.3 0-11.6-4.1-13.5-9.9l-7.9 6.1C6.5 42.6 14.6 48 24 48z" />
-    </svg>
-  )
-}
-
-export function GoogleButton({
-  label,
-  onError,
-  disabled,
-}: {
-  label: string
-  onError: (message: string) => void
-  disabled?: boolean
-}) {
-  const [loading, setLoading] = useState(false)
-
-  const handleClick = async () => {
-    setLoading(true)
-    try {
-      // redirects to Google; needs the "google" provider in your Better Auth server config
-      const { error } = await authClient.signIn.social({
-        provider: "google",
-        callbackURL: "/",
-      })
-      if (error) onError(error.message ?? "Google sign-in failed")
-    } catch {
-      onError("Google sign-in failed. Please try again.")
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  return (
-    <Button
-      type="button"
-      variant="outline"
-      onClick={handleClick}
-      disabled={disabled || loading}
-      className="h-11 w-full gap-3 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:border-neutral-300 hover:bg-neutral-50 hover:shadow-md"
-    >
-      {loading ? <Loader2 className="size-4 animate-spin" /> : <GoogleIcon />}
-      {label}
-    </Button>
   )
 }

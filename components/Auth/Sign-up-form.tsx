@@ -10,8 +10,6 @@ import {
   AuthInput,
   AuthShell,
   FormError,
-  GoogleButton,
-  OrDivider,
   SubmitButton,
 } from "./Auth-parts"
 
@@ -136,14 +134,6 @@ export default function SignUpForm() {
 
         <SubmitButton pending={pending} idle="Create Account" busy="Creating account..." />
       </form>
-
-      <OrDivider text="Or sign up with" />
-
-      <GoogleButton
-        label="Sign Up With Google"
-        onError={setServerError}
-        disabled={pending}
-      />
 
       <p className="mt-6 text-center text-sm text-neutral-600">
         Already have an account?{" "}

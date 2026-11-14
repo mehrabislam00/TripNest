@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ArrowRight, CalendarDays, Check, CheckCircle2, Loader2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -36,6 +36,44 @@ export default function BookingCard({
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const [booked, setBooked] = useState(false)
+  const [bookingStatus, setBookingStatus] = useState<"pending" | "confirmed" | null>(null)
+
+  useEffect(() => {
+    if (!user) return
+
+    let active = true
+    fetch(
+      `${API_URL}/bookings?userId=${encodeURIComponent(user.id)}&destinationId=${encodeURIComponent(destination.id)}`,
+      { cache: "no-store" }
+    )
+      .then(async (res) => {
+        if (!res.ok) throw new Error(`Booking status failed (${res.status})`)
+        return (await res.json()) as Array<{
+          status?: string
+          departureDate?: string
+        }>
+      })
+      .then((bookings) => {
+        const existing = bookings.find(
+          (booking) => booking.status?.toLowerCase() !== "cancelled"
+        )
+        if (!active || !existing) return
+
+        setBooked(true)
+        setBookingStatus(
+          existing.status?.toLowerCase() === "confirmed" ? "confirmed" : "pending"
+        )
+        if (existing.departureDate) setDate(existing.departureDate)
+      })
+      .catch(() => {
+        if (active) setError("Couldn't check your booking status. Please try again.")
+      })
+
+    return () => {
+      active = false
+    }
+  }, [destination.id, user])
+
   const handleBook = async () => {
     const today = new Date().toISOString().slice(0, 10)
     if (!date) return setError("Please choose a departure date")
@@ -47,6 +85,7 @@ export default function BookingCard({
     try {
       const booking = {
         userId: user.id,
+        destinationId: destination.id,
         username: user.name,
         email: user.email,
         image: user.image ?? "",
@@ -59,6 +98,7 @@ export default function BookingCard({
         imageUrl: destination.image,
         description: destination.description ?? "",
         bookingDate: new Date().toISOString(),
+        status: "pending",
       }
       const res = await fetch(`${API_URL}/bookings`, {
         method: "POST",
@@ -69,6 +109,7 @@ export default function BookingCard({
 
       await new Promise((r) => setTimeout(r, 900))
       setBooked(true)
+      setBookingStatus("pending")
     } finally {
       setLoading(false)
     }
@@ -99,6 +140,7 @@ export default function BookingCard({
               setDate(e.target.value)
               setError("")
               setBooked(false)
+              setBookingStatus(null)
             }}
             aria-invalid={!!error}
             className="h-11 border-transparent bg-neutral-100/80 shadow-none transition-all focus-visible:border-[#1a9fc0] focus-visible:bg-white focus-visible:ring-[#1a9fc0]/25"
@@ -112,13 +154,22 @@ export default function BookingCard({
 
         <Button
           onClick={handleBook}
-          disabled={loading}
-          className="group mt-5 h-12 w-full gap-2 bg-[#1a9fc0] text-sm font-medium shadow-md shadow-[#1a9fc0]/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#168aa8] hover:shadow-lg hover:shadow-[#1a9fc0]/40"
+          disabled={loading || booked}
+          className={`group mt-5 h-12 w-full gap-2 text-sm font-medium shadow-md transition-all duration-300 ${
+            booked
+              ? "bg-emerald-500 shadow-emerald-500/30 hover:bg-emerald-500"
+              : "bg-[#1a9fc0] shadow-[#1a9fc0]/30 hover:-translate-y-0.5 hover:bg-[#168aa8] hover:shadow-lg hover:shadow-[#1a9fc0]/40"
+          }`}
         >
           {loading ? (
             <>
               <Loader2 className="size-4 animate-spin" />
               Booking...
+            </>
+          ) : booked ? (
+            <>
+              <CheckCircle2 className="size-4" />
+              Booked
             </>
           ) : (
             <>
@@ -134,7 +185,10 @@ export default function BookingCard({
             className="animate-in fade-in slide-in-from-bottom-1 mt-4 flex items-center gap-2 rounded-xl bg-emerald-50 px-3 py-2.5 text-xs text-emerald-800 ring-1 ring-emerald-200"
           >
             <CheckCircle2 className="size-4 shrink-0" />
-            Booking request sent for {title}.
+            Booking request sent for {title}.{" "}
+            <span className="font-semibold">
+              {bookingStatus === "confirmed" ? "Confirmed" : "Pending"}
+            </span>
           </div>
         )}
 
