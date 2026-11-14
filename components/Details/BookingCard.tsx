@@ -8,6 +8,9 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { formatTaka } from "@/lib/format"
+import { API_URL } from "@/lib/api"
+import { authClient } from "@/lib/auth-client"
+import { Destination } from "@/lib/Destination"
 
 // Edit these to match your real booking policy
 const PERKS = [
@@ -17,29 +20,53 @@ const PERKS = [
 ]
 
 export default function BookingCard({
+  destination,
   title,
   price,
   defaultDate = "",
 }: {
+  destination: Destination
   title: string
   price: number
   defaultDate?: string
 }) {
+  const { data: session } = authClient.useSession()
+  const user = session?.user
   const [date, setDate] = useState(defaultDate)
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const [booked, setBooked] = useState(false)
-
   const handleBook = async () => {
     const today = new Date().toISOString().slice(0, 10)
     if (!date) return setError("Please choose a departure date")
     if (date < today) return setError("Departure date can't be in the past")
+    if (!user) return setError("Please sign in before booking")
 
     setError("")
     setLoading(true)
     try {
-      // TODO: replace with your real booking API call, e.g.
-      // await fetch("/api/bookings", { method: "POST", body: JSON.stringify({ title, date }) })
+      const booking = {
+        userId: user.id,
+        username: user.name,
+        email: user.email,
+        image: user.image ?? "",
+        name: destination.title,
+        country: destination.country,
+        category: destination.category,
+        price: destination.price,
+        duration: destination.duration,
+        departureDate: date,
+        imageUrl: destination.image,
+        description: destination.description ?? "",
+        bookingDate: new Date().toISOString(),
+      }
+      const res = await fetch(`${API_URL}/bookings`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(booking),
+      })
+      if (!res.ok) throw new Error(`Booking failed (status ${res.status})`)
+
       await new Promise((r) => setTimeout(r, 900))
       setBooked(true)
     } finally {

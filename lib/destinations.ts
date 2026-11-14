@@ -1,5 +1,7 @@
 import { revalidateTag, updateTag } from "next/cache"
+import { API_URL } from "@/lib/api"
 
+export { API_URL }
 export type Destination = {
   id: string
   title: string
@@ -15,7 +17,6 @@ export type Destination = {
   reviewCount?: number
 }
 
-export const API_URL = process.env.API_URL ?? "http://localhost:5000"
 export const DESTINATIONS_CACHE_TAG = "destinations"
 export const DESTINATIONS_CACHE_SECONDS = 60
 

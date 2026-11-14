@@ -15,7 +15,7 @@ import {
 import { Button } from "@/components/ui/button"
 import type { Destination } from "@/lib/destinations"
 import EditDestinationDialog from "./Edit-destination-dialog"
-import { deleteDestination } from "@/app/destinations/[id]/actions"
+import { deleteDestination } from "@/lib/actions-destination"
 
 export default function DestinationActions({
   destination,

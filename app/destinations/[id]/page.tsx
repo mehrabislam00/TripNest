@@ -145,6 +145,7 @@ export default async function DestinationDetails({ params }: Props) {
           {/* Right: sticky booking card */}
           <aside className="lg:sticky lg:top-28 lg:self-start">
             <BookingCard
+              destination={d}
               title={d.title}
               price={d.price}
               defaultDate={d.departureDate}

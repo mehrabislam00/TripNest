@@ -1,11 +1,10 @@
-import React from 'react'
+import SignInForm from "@/components/Auth/Sign-in-form"
 
-const SignIn = () => {
-  return (
-    <div>
-      
-    </div>
-  )
+
+export const metadata = {
+  title: "Sign In | Wanderlast",
 }
+
+const SignIn = () => <SignInForm />
 
 export default SignIn

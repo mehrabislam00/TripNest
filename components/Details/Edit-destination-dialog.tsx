@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react"
 import { Loader2, Save, X } from "lucide-react"
 
-import { updateDestination } from "@/app/destinations/[id]/actions"
+import { updateDestination } from "@/lib/actions-destination"
 import DestinationFields from "./Destination-fields"
 import { Button } from "@/components/ui/button"
 import {

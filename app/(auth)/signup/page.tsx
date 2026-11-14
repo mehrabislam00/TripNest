@@ -1,11 +1,11 @@
-import React from 'react'
+import SignUpForm from "@/components/Auth/Sign-up-form"
 
-const SignUp = () => {
-  return (
-    <div>
-      
-    </div>
-  )
+
+
+export const metadata = {
+  title: "Create Account | Wanderlast",
 }
+
+const SignUp = () => <SignUpForm />
 
 export default SignUp
