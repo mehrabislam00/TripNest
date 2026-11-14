@@ -30,10 +30,10 @@ The Express and MongoDB backend is maintained in a separate repository:
 
 [TripNest Backend](https://github.com/mehrabislam00/TripNest_Backend)
 
-The deployed backend API is:
+Live linl:
 
 ```text
-https://tripnest-backend-delta.vercel.app
+https://tripnest-two-theta.vercel.app/
 ```
 
 ## Getting Started
