@@ -1,4 +1,5 @@
 import { API_URL } from "@/lib/destinations"
+import { getAuthToken } from "@/lib/auth-token"
 
 export type BookingStatus = "confirmed" | "pending" | "cancelled"
 
@@ -65,11 +66,18 @@ export async function getBookings(userId: string): Promise<{
   error: boolean
 }> {
   try {
+    const token = await getAuthToken()
     const res = await fetch(
       `${API_URL}/bookings?userId=${encodeURIComponent(userId)}`,
-      { cache: "no-store" }
+      {
+        headers: { Authorization: `Bearer ${token}` },
+        cache: "no-store",
+      }
     )
-    if (!res.ok) throw new Error(`Request failed: ${res.status}`)
+    if (!res.ok) {
+      const details = await res.text()
+      throw new Error(`Request failed: ${res.status}${details ? ` - ${details}` : ""}`)
+    }
 
     const json = await res.json()
     const list: Raw[] = Array.isArray(json) ? json : (json.data ?? json.bookings ?? [])

@@ -19,6 +19,23 @@ const PERKS = [
   "24/7 customer support",
 ]
 
+async function getAuthorizationHeaders(): Promise<Record<string, string>> {
+  const sessionResponse = await fetch("/api/auth/get-session", {
+    credentials: "include",
+    cache: "no-store",
+  })
+  if (!sessionResponse.ok) {
+    throw new Error(`Session token request failed (${sessionResponse.status})`)
+  }
+
+  const token = sessionResponse.headers.get("set-auth-jwt")
+  if (!token) {
+    throw new Error("Session token was not returned by Better Auth")
+  }
+
+  return { Authorization: `Bearer ${token}` }
+}
+
 export default function BookingCard({
   destination,
   title,
@@ -42,13 +59,16 @@ export default function BookingCard({
     if (!user) return
 
     let active = true
-    fetch(
-      `${API_URL}/bookings?userId=${encodeURIComponent(user.id)}&destinationId=${encodeURIComponent(destination.id)}`,
-      { cache: "no-store" }
-    )
-      .then(async (res) => {
-        if (!res.ok) throw new Error(`Booking status failed (${res.status})`)
-        return (await res.json()) as Array<{
+    getAuthorizationHeaders()
+      .then((headers) =>
+        fetch(
+          `${API_URL}/bookings?userId=${encodeURIComponent(user.id)}&destinationId=${encodeURIComponent(destination.id)}`,
+          { headers, cache: "no-store" }
+        )
+      )
+      .then(async (response) => {
+        if (!response.ok) throw new Error(`Booking status failed (${response.status})`)
+        return (await response.json()) as Array<{
           status?: string
           departureDate?: string
         }>
@@ -102,7 +122,10 @@ export default function BookingCard({
       }
       const res = await fetch(`${API_URL}/bookings`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(await getAuthorizationHeaders()),
+        },
         body: JSON.stringify(booking),
       })
       if (!res.ok) throw new Error(`Booking failed (status ${res.status})`)

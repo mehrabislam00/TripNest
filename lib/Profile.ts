@@ -1,7 +1,7 @@
-import { headers } from "next/headers"
-
 import { auth } from "@/lib/auth"
+import { getAuthToken } from "@/lib/auth-token"
 import { API_URL } from "@/lib/destinations"
+import { headers } from "next/headers"
 
 export type Profile = {
   id: string
@@ -33,7 +33,11 @@ export async function getSessionUser() {
 
 async function getJson(path: string): Promise<unknown | null> {
   try {
-    const res = await fetch(`${API_URL}${path}`, { cache: "no-store" })
+    const token = await getAuthToken()
+    const res = await fetch(`${API_URL}${path}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: "no-store",
+    })
     return res.ok ? await res.json() : null
   } catch {
     return null
