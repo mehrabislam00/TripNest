@@ -30,7 +30,7 @@ The Express and MongoDB backend is maintained in a separate repository:
 
 [TripNest Backend](https://github.com/mehrabislam00/TripNest_Backend)
 
-Live linl:
+Live link:
 
 ```text
 https://tripnest-two-theta.vercel.app/
