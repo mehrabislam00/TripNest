@@ -51,7 +51,10 @@ export default function FeaturedDestinations({
     )
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white to-sky-50/60 px-4 py-20 lg:px-12 lg:py-28">
+    <section
+      id="featured-destinations"
+      className="relative overflow-hidden bg-gradient-to-b from-white to-sky-50/60 px-4 py-20 lg:px-12 lg:py-28"
+    >
       {/* soft decorative glow */}
       <div className="pointer-events-none absolute -right-40 top-10 size-[420px] rounded-full bg-[#1a9fc0]/10 blur-3xl" />
 

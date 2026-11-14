@@ -22,3 +22,7 @@
 //     </main>
 //   )
 // }
+
+export default function AddDestination() {
+  return null
+}

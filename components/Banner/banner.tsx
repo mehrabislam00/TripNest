@@ -1,6 +1,6 @@
 import Image from "next/image"
+import Link from "next/link"
 import { ArrowRight, Calendar, MapPin, Search, Users, Wallet } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import bannerImg from "@/assets/Banner.png"
 
 const searchFields = [
@@ -39,20 +39,19 @@ export default function Banner() {
         </p>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-          <Button
-            size="lg"
-            className="group h-12 gap-5 rounded-xl bg-[#1a9fc0] px-6 text-sm font-medium uppercase tracking-wide shadow-lg shadow-[#1a9fc0]/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#168aa8] hover:shadow-xl hover:shadow-[#1a9fc0]/40"
+          <a
+            href="#featured-destinations"
+            className="group inline-flex h-12 items-center justify-center gap-5 rounded-xl bg-[#1a9fc0] px-6 text-sm font-medium uppercase tracking-wide shadow-lg shadow-[#1a9fc0]/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#168aa8] hover:shadow-xl hover:shadow-[#1a9fc0]/40"
           >
             Explore Now
             <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1.5" />
-          </Button>
-          <Button
-            size="lg"
-            variant="secondary"
-            className="h-12 rounded-xl border border-white/30 bg-white/15 px-6 text-sm font-medium uppercase tracking-wide text-white backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-neutral-900"
+          </a>
+          <Link
+            href="/destinations"
+            className="inline-flex h-12 items-center justify-center rounded-xl border border-white/30 bg-white/15 px-6 text-sm font-medium uppercase tracking-wide text-white backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-neutral-900"
           >
             View Destination
-          </Button>
+          </Link>
         </div>
       </div>
 
