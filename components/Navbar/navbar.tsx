@@ -12,7 +12,7 @@ const mainLinks = [
   { label: "Home", href: "/" },
   { label: "Destinations", href: "/destinations" },
   { label: "My Bookings", href: "/my-bookings" },
-  { label: "Admin", href: "/admin" },
+
 ]
 
 export default function Navbar() {
