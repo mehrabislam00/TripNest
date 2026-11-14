@@ -1,7 +1,6 @@
 "use client"
 
 import { useRef, useState } from "react"
-import Image, { type StaticImageData } from "next/image"
 import Link from "next/link"
 
 import {
@@ -14,38 +13,18 @@ import {
   Star,
 } from "lucide-react"
 
-import image1 from "@/assets/destinations/image1.png"
-import image2 from "@/assets/destinations/image2.png"
-import image3 from "@/assets/destinations/image3.png"
-import image4 from "@/assets/destinations/image4.png"
-import image5 from "@/assets/destinations/image5.png"
-import image6 from "@/assets/destinations/image6.png"
 import { formatTaka } from "@/lib/format"
+import type { Destination } from "@/lib/destinations"
+import DestinationImage from "@/components/destinations/destination-image"
 
-type Destination = {
-  id: number
-  image: StaticImageData
-  country: string
-  title: string
-  price: number
-  duration: string
-  rating: number
-}
-
-// Edit this data to match your real destinations
-const destinations: Destination[] = [
-  { id: 1, image: image1, country: "Nepal", title: "Bali Paradise", price: 2700, duration: "7 Days/6 Nights", rating: 4.5 },
-  { id: 2, image: image2, country: "Indonesia", title: "Bali Paradise", price: 2700, duration: "7 Days/6 Nights", rating: 4.5 },
-  { id: 3, image: image3, country: "Indonesia", title: "Bali Paradise", price: 2700, duration: "7 Days/6 Nights", rating: 4.5 },
-  { id: 4, image: image4, country: "Indonesia", title: "Bali Paradise", price: 2700, duration: "7 Days/6 Nights", rating: 4.5 },
-  { id: 5, image: image5, country: "Indonesia", title: "Bali Paradise", price: 2700, duration: "7 Days/6 Nights", rating: 4.5 },
-  { id: 6, image: image6, country: "Indonesia", title: "Bali Paradise", price: 2700, duration: "7 Days/6 Nights", rating: 4.5 },
-]
-
-export default function FeaturedDestinations() {
+export default function FeaturedDestinations({
+  destinations,
+}: {
+  destinations: Destination[]
+}) {
   const trackRef = useRef<HTMLDivElement>(null)
   const [index, setIndex] = useState(0)
-  const [liked, setLiked] = useState<number[]>([])
+  const [liked, setLiked] = useState<string[]>([])
   const total = destinations.length
 
   const getStep = () => {
@@ -66,7 +45,7 @@ export default function FeaturedDestinations() {
   const scrollByCard = (dir: 1 | -1) =>
     trackRef.current?.scrollBy({ left: dir * getStep(), behavior: "smooth" })
 
-  const toggleLike = (id: number) =>
+  const toggleLike = (id: string) =>
     setLiked((prev) =>
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
     )
@@ -112,13 +91,9 @@ export default function FeaturedDestinations() {
               >
                 {/* Image */}
                 <div className="relative aspect-[3/2] overflow-hidden rounded-2xl bg-neutral-100">
-                  <Image
+                  <DestinationImage
                     src={d.image}
                     alt={`${d.title}, ${d.country}`}
-                    fill
-                    placeholder="blur"
-                    sizes="(min-width: 1024px) 46vw, (min-width: 640px) 50vw, 85vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/10 opacity-60 transition-opacity duration-500 group-hover:opacity-100" />
 
@@ -139,7 +114,7 @@ export default function FeaturedDestinations() {
 
                   {/* Rating */}
                   <div className="absolute right-3 top-3 flex items-center gap-1.5 rounded-full bg-white/85 px-3 py-1.5 text-xs font-semibold text-neutral-900 backdrop-blur-md">
-                    {d.rating}
+                    {d.rating ?? "New"}
                     <Star className="size-3.5 fill-amber-400 text-amber-400" />
                   </div>
 

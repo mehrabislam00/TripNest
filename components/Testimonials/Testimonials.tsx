@@ -28,39 +28,39 @@ type Testimonial = {
 const testimonials: Testimonial[] = [
   {
     name: "Michael Chen",
-    location: "Singapore",
+    location: "Dhaka, Bangladesh",
     quote:
-      "The Bali trip was absolutely magical! Every detail was perfectly planned. The resorts were luxurious and the cultural experiences were unforgettable.",
+      "We spent five days in Ubud and finished by the coast in Jimbaran. The itinerary gave us plenty of time to explore without making the trip feel rushed.",
     rating: 5,
     image: person1,
   },
   {
     name: "Sarah Johnson",
-    location: "New York, USA",
+    location: "Chattogram, Bangladesh",
     quote:
-      "Swiss Alps adventure exceeded all expectations. The mountain views were breathtaking and our guide was incredibly knowledgeable. Highly recommend!",
+      "The Swiss Alps itinerary was exactly what we needed. The train connections were easy to follow, and our guide found quiet viewpoints away from the busiest spots.",
     rating: 5,
     image: person2,
   },
   {
     name: "Emma Rodriguez",
-    location: "Madrid, Spain",
+    location: "Sylhet, Bangladesh",
     quote:
-      "From the first call to the last day, everything felt effortless. The Kyoto itinerary balanced temples, food and free time perfectly.",
+      "Kyoto was a great mix of temples, small restaurants, and free afternoons. The neighborhood suggestions were especially useful when we wanted to get away from the crowds.",
     rating: 5,
   },
   {
     name: "Daniel Okafor",
-    location: "Lagos, Nigeria",
+    location: "Rajshahi, Bangladesh",
     quote:
-      "Booked a family safari and it was the best week we have ever had. The guides were patient with the kids and the lodges were spotless.",
+      "Our family safari was well organized from airport pickup to the last game drive. The guide was patient with our children, and the lodge was comfortable and clean.",
     rating: 4,
   },
   {
     name: "Aisha Rahman",
-    location: "Dhaka, Bangladesh",
+    location: "Khulna, Bangladesh",
     quote:
-      "Great value and zero stress. When our flight changed, the support team rebooked everything within minutes. I will travel with them again.",
+      "The price was clear from the beginning, and the support team replied quickly when our flight changed. Having the transfers rearranged for us made a big difference.",
     rating: 5,
   },
 ]
